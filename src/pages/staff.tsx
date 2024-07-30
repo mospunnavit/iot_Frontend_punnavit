@@ -24,8 +24,18 @@ interface Order {
   details: string; // เป็น JSON string ที่ต้องแปลง
 }
 
+const parseOrderDetails = (details: string): Item[] => {
+  try {
+    const parsed = JSON.parse(details);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    console.error('Failed to parse order details:', error);
+    return [];
+  }
+};
+
 export default function Staff() {
-  const apiUrl = import.meta.env.VITE_API_URL + 'orders'; // ดึงค่า URL จากตัวแปรสิ่งแวดล้อม
+  const apiUrl = import.meta.env.VITE_API_URL + 'orders';
   const { data: orders, error } = useSWR<Order[]>(apiUrl, fetcher);
 
   if (error) {
@@ -55,22 +65,14 @@ export default function Staff() {
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {orders.map((order) => {
-              const orderDetails: Item[] = (() => {
-                try {
-                  const parsed = JSON.parse(order.details);
-                  return Array.isArray(parsed) ? parsed : [];
-                } catch (error) {
-                  console.error('Failed to parse order details:', error);
-                  return [];
-                }
-              })();
+              const orderDetails = parseOrderDetails(order.details);
               return (
                 <div className="border border-solid border-neutral-200 p-4" key={order.order_id}>
                   <h3>Order ID: {order.order_id}</h3>
                   <p>Status: {order.status}</p>
                   <div className="border border-solid border-neutral-400 p-2">
                     <ul>
-                      {orderDetails.map((item) => (
+                      {Array.isArray(orderDetails) && orderDetails.map((item) => (
                         <li key={item.id} className="mb-2">
                           <p>ชื่ออาหาร: {item.name} x{item.amount}</p>
                           <p>รายละเอียด: {item.details}</p>
