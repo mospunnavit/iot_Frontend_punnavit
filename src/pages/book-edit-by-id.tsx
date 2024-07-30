@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { Book } from "../lib/models";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/layout";
-import { Alert, Button, Checkbox, Container, Divider, NumberInput, TextInput } from "@mantine/core";
+import { Alert, Button, Checkbox, Container, Divider, NumberInput, RadioGroup, Textarea, TextInput } from "@mantine/core";
 import Loading from "../components/loading";
 import { IconAlertTriangleFilled, IconTrash } from "@tabler/icons-react";
 import { isNotEmpty, useForm } from "@mantine/form";
@@ -10,20 +10,24 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
+import TypeCheckbox from "../components/Checktype";
+
 
 export default function BookEditById() {
   const { bookId } = useParams();
   const navigate = useNavigate();
-
   const [isProcessing, setIsProcessing] = useState(false);
-
   const { data: book, isLoading, error } = useSWR<Book>(`/books/${bookId}`);
+  
   const [isSetInitialValues, setIsSetInitialValues] = useState(false);
-
   const bookEditForm = useForm({
     initialValues: {
       title: "",
       author: "",
+      descripion: "",
+      synopsis:"",
+      type: "",
+      picture: "",
       year: 2024,
       is_published: false,
     },
@@ -31,14 +35,21 @@ export default function BookEditById() {
     validate: {
       title: isNotEmpty("กรุณาระบุชื่อหนังสือ"),
       author: isNotEmpty("กรุณาระบุชื่อผู้แต่ง"),
+      synopsis: isNotEmpty("ระบุเรื่องย่อ"),
       year: isNotEmpty("กรุณาระบุปีที่พิมพ์หนังสือ"),
     },
   });
-
+ 
   const handleSubmit = async (values: typeof bookEditForm.values) => {
+    console.log("testsub"+bookEditForm.values)
+     if (bookEditForm.values.type == ""){
+         alert(`เลือกประเถท`)
+         return;
+      }
     try {
+     
       setIsProcessing(true);
-      await axios.patch(`/books/${bookId}`, values);
+      await axios.put(`/books/${bookId}`, values);
       notifications.show({
         title: "แก้ไขข้อมูลหนังสือสำเร็จ",
         message: "ข้อมูลหนังสือได้รับการแก้ไขเรียบร้อยแล้ว",
@@ -114,17 +125,25 @@ export default function BookEditById() {
       setIsProcessing(false);
     }
   };
-
+  
   useEffect(() => {
     if (!isSetInitialValues && book) {
       bookEditForm.setInitialValues(book);
       bookEditForm.setValues(book);
       setIsSetInitialValues(true);
     }
+  
+    
   }, [book, bookEditForm, isSetInitialValues]);
 
+
+  const handleCheckboxChange = (newTypes: string) => {
+    bookEditForm.setFieldValue('type', newTypes);
+  };
+  console.log(bookEditForm.values)
   return (
     <>
+    
       <Layout>
         <Container className="mt-8">
           <h1 className="text-xl">แก้ไขข้อมูลหนังสือ</h1>
@@ -154,7 +173,11 @@ export default function BookEditById() {
                   placeholder="ชื่อผู้แต่ง"
                   {...bookEditForm.getInputProps("author")}
                 />
-
+                <TextInput
+                  label="ลิงค์รูปหนังสื่อ"
+                  placeholder="ลิงค์รูปหนังสื่อ"
+                  {...bookEditForm.getInputProps("picture")}
+                />
                 <NumberInput
                   label="ปีที่พิมพ์"
                   placeholder="ปีที่พิมพ์"
@@ -164,8 +187,27 @@ export default function BookEditById() {
                 />
 
                 {/* TODO: เพิ่มรายละเอียดหนังสือ */}
+                <Textarea
+                  label="รายละเอียดหนังสือ"
+                  placeholder="รายละเอียดหนังสือ"
+                  {...bookEditForm.getInputProps("descripion")}
+                />
+
                 {/* TODO: เพิ่มเรื่องย่อ */}
+                <Textarea
+                  label="เรื่องย่อ"
+                  placeholder="เรื่องย่อ"
+                  {...bookEditForm.getInputProps("synopsis")}
+                />
+
                 {/* TODO: เพิ่มหมวดหมู่(s) */}
+                <div >
+                </div>
+
+                 <TypeCheckbox
+                typechecklist={bookEditForm.values.type}
+                onChange={handleCheckboxChange}
+                />
 
                 <Checkbox
                   label="เผยแพร่"
@@ -214,3 +256,4 @@ export default function BookEditById() {
     </>
   );
 }
+

@@ -1,0 +1,25 @@
+.custom-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox:checked {
+    background-color: var(--mantine-color-orange-filled);
+    border-color: var(--mantine-color-orange-filled);
+  }
+  
+  .custom-checkbox:checked::after {
+    content: '✔'; /* ใช้เครื่องหมายติ๊ก */
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -45%) rotate(20deg);
+    color: white; /* เปลี่ยนสีของเครื่องหมายติ๊ก */
+    font-size: 16px; /* ขนาดของเครื่องหมายติ๊ก */
+  }

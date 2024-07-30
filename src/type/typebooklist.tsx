@@ -1,0 +1,1 @@
+export const typebooklist = ['ผี', 'ตลก', 'ฮา']

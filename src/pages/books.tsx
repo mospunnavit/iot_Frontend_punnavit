@@ -54,9 +54,10 @@ export default function BooksPage() {
             {books?.map((book) => (
               <div className="border border-solid border-neutral-200" key={book.id}>
                 <img
-                  src="https://placehold.co/150x200"
+                  src={book.picture}
                   alt={book.title}
                   className="w-full object-cover aspect-[3/4]"
+                  style={{ width: "200px", height: "250px", objectFit: "cover" }}
                 />
                 <div className="p-4">
                   <h2 className="text-lg font-semibold line-clamp-2">{book.title}</h2>

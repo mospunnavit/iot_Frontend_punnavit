@@ -45,6 +45,8 @@ export default function HomePage() {
       <section className="w-full flex justify-center">
         <img src={coffeeImage} alt="Coffee" className="w-full" />
       </section>
+    
     </Layout>
+    
   );
 }
