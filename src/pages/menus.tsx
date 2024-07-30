@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { useState } from "react";
 import { Menu } from "../lib/models";
 import { Alert, Button, Container, TextInput, NumberInput } from "@mantine/core";
-import { IconAlertTriangleFilled, IconPlus, IconShoppingCart } from "@tabler/icons-react";
+import { IconAlertTriangleFilled,  IconShoppingCart } from "@tabler/icons-react";
 import Loading from "../components/loading";
 import { Link } from "react-router-dom";
 import { Drawer } from '@mantine/core';
