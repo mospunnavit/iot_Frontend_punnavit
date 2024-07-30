@@ -3,7 +3,13 @@ import { Alert, Container, Loader } from '@mantine/core';
 import Layout from '../components/layout';
 
 // ฟังก์ชัน fetcher สำหรับดึงข้อมูล
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+const fetcher = async (url: string): Promise<Order[]> => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`An error occurred: ${response.statusText}`);
+  }
+  return response.json();
+};
 
 interface Item {
   id: number;
@@ -20,7 +26,7 @@ interface Order {
 
 export default function Staff() {
   const apiUrl = import.meta.env.VITE_API_URL + 'orders'; // ดึงค่า URL จากตัวแปรสิ่งแวดล้อม
-  const { data: orders, error } = useSWR<Order[]>(apiUrl, fetcher); // ระบุประเภทของข้อมูลที่ดึงมาจาก API
+  const { data: orders, error } = useSWR<Order[]>(apiUrl, fetcher);
 
   if (error) {
     return (
@@ -49,7 +55,15 @@ export default function Staff() {
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {orders.map((order) => {
-              const orderDetails: Item[] = JSON.parse(order.details); // แปลงสตริง JSON ให้เป็นออบเจ็กต์
+              const orderDetails: Item[] = (() => {
+                try {
+                  const parsed = JSON.parse(order.details);
+                  return Array.isArray(parsed) ? parsed : [];
+                } catch (error) {
+                  console.error('Failed to parse order details:', error);
+                  return [];
+                }
+              })();
               return (
                 <div className="border border-solid border-neutral-200 p-4" key={order.order_id}>
                   <h3>Order ID: {order.order_id}</h3>
