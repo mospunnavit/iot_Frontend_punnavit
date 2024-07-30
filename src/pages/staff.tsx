@@ -35,7 +35,7 @@ const parseOrderDetails = (details: string): Item[] => {
 };
 
 export default function Staff() {
-  const apiUrl = import.meta.env.VITE_API_URL + 'orders';
+  const apiUrl = import.meta.env.VITE_API_URL + '/orders';
   const { data: orders, error } = useSWR<Order[]>(apiUrl, fetcher);
 
   if (error) {
