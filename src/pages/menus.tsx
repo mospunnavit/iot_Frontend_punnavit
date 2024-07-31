@@ -5,7 +5,6 @@ import { Menu } from "../lib/models";
 import { Alert, Button, Container, TextInput, NumberInput } from "@mantine/core";
 import { IconAlertTriangleFilled,  IconShoppingCart } from "@tabler/icons-react";
 import Loading from "../components/loading";
-import { Link } from "react-router-dom";
 import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from "@mantine/notifications";
@@ -87,7 +86,7 @@ export default function MenuPage() {
         <section
           className="h-[500px] w-full text-white bg-orange-800 bg-cover bg-blend-multiply flex flex-col justify-center items-center px-4 text-center"
           style={{
-            backgroundImage: `url()`,
+            backgroundImage: `url(https://images.pexels.com/photos/4041246/pexels-photo-4041246.jpeg?auto=compress&cs=tinysrgb&w=600)`,
           }}
         >
           <h1 className="text-5xl mb-2">เมนู</h1>
@@ -171,9 +170,7 @@ export default function MenuPage() {
                   >
                     สั่ง
                   </Button>
-                  <Button component={Link} to={`/menus/${menu.menu_id}`} size="xs" variant="default">
-                    ดูรายละเอียด
-                  </Button>
+                 
                 </div>
               </div>
             ))}

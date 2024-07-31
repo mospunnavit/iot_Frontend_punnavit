@@ -1,6 +1,4 @@
 import Layout from "../components/layout";
-import cafeBackgroundImage from "../assets/images/bg-cafe-1.jpg";
-import ajPanwitImage from "../assets/images/aj-panwit.jpg";
 import coffeeImage from "../assets/images/coffee-1.jpg";
 
 export default function HomePage() {
@@ -9,11 +7,11 @@ export default function HomePage() {
       <section
         className="h-[500px] w-full text-white bg-orange-800 bg-cover bg-blend-multiply flex flex-col justify-center items-center px-4 text-center"
         style={{
-          backgroundImage: `url(${cafeBackgroundImage})`,
+          backgroundImage: 'url(https://images.pexels.com/photos/694740/pexels-photo-694740.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)',
         }}
       >
-        <h1 className="text-5xl mb-2">ยินดีต้อนรับสู่ IoT Library & Cafe</h1>
-        <h2>ร้านกาแฟที่มีหนังสืออยู่นิดหน่อยให้คุณได้อ่าน</h2>
+        <h1 className="text-5xl mb-2">ยินดีต้อนรับสู่ Cafe InwZa</h1>
+        <h2>ร้านกาแฟสำหรับคนเท่ เท่ห์ By Punnavit</h2>
       </section>
 
       <section className="container mx-auto py-8">
@@ -21,24 +19,19 @@ export default function HomePage() {
 
         <div className="grid grid-cols-3 gap-4">
           <p className="text-left col-span-2">
-            IoT Library & Cafe เป็นร้านกาแฟที่มีหนังสืออยู่นิดหน่อยให้คุณได้อ่าน
-            และเรียนรู้เรื่องใหม่ๆ ที่เกี่ยวกับเทคโนโลยี IoT โดยคาเฟ่ของเรานั้น ก่อตั้งขึ้นโดย
-            ผศ.ดร. ปานวิทย์ ธุวะนุติ ซึ่งเป็นอาจารย์ในวิชา Internet of Things และนายกฤตณัฏฐ์
-            ศิริพรนพคุณ เป็นผู้ช่วยสอนในหัวข้อ FastAPI และ React ในวิชานี้
+          Cafe InwZa เป็นร้านกาแฟที่มีหนังสืออยู่นิดหน่อยให้คุณได้อ่าน
+            และเรียนรู้เรื่องใหม่ๆ ที่เกี่ยวกับเนื้อหาทุกอย่างที่จะหามาให้อ่านได้โดยทางเราได้คัดกรองมา
+            โดยจาก ปัณณวิชญ์ ปานช้าง 
           </p>
 
           <div>
-            <img src={ajPanwitImage} alt="Panwit Tuwanut" className="h-full w-full object-cover" />
+            <img src="https://images.pexels.com/photos/6957994/pexels-photo-6957994.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Panwit Tuwanut" className="h-full w-full object-cover" />
           </div>
         </div>
         <p className="text-right mt-8">
           ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ ....
           {/* TODO: ชื่อของตนเอง, รหัสประจำตัวนักศึกษา และแนะนำคาเฟ่นี้ต่ออีกสักหน่อย + ใส่รูปของตนเอง (ไม่จำเป็นหากไม่สะดวกใจใส่รูป) */}
-          ซึ่งมีบริการ... Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          placeat sit ea sapiente officia sunt cumque impedit, reiciendis quis eius asperiores!
-          Minus, mollitia? Vitae inventore odio quod ducimus similique, expedita sequi, reiciendis
-          rem recusandae impedit voluptatibus quo veritatis ut quis et suscipit? Eligendi, neque!
-          Earum quaerat unde similique totam. Pariatur!
+          ซึ่งมีบริการ... ขาย เครื่องดื่ม และ หนังสื่อ ที่มีหน้า staff ที่ import จากวาโนคุนิมาจากญี่ปุ่นซึ่งถ้าคนทำร้านเสียหายนั้นหมายความว่าคุณอาจจะได้รับความเสียหายเหมือนกัน
         </p>
       </section>
 
