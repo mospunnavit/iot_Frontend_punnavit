@@ -42,7 +42,7 @@ export default function BookByIdPage() {
               <p className="italic text-neutral-500 mb-4">โดย {book.author}</p>
               <div className="grid grid-cols-1 lg:grid-cols-3">
                 <img
-                  src="https://placehold.co/150x200"
+                  src= {book.picture}
                   alt={book.title}
                   className="w-full object-cover aspect-[3/4]"
                 />

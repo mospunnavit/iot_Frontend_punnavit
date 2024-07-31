@@ -6,8 +6,11 @@ import Layout from '../components/layout';
 const fetcher = async (url: string): Promise<Order[]> => {
   const response = await fetch(url);
   if (!response.ok) {
+     alert("ไม่มี order");
     throw new Error(`An error occurred: ${response.statusText}`);
+    
   }
+ 
   return response.json();
 };
 
